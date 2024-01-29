@@ -10,7 +10,9 @@ urlpatterns = (
         [
         path('', views.show_profile, name='show-profile'),
         path('edit/', views.edit_profile, name='edit-profile'),
-        path('delete/', views.delete_profile, name='delete-profile'),]
+        path('delete/', views.delete_profile, name='delete-profile'),
+        path('logout/', views.logout, name='logout'),
+        ]
 
 
     )),

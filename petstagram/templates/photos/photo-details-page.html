@@ -1,9 +1,11 @@
+
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 <!-- Starts Head Section -->
 <head>
-    <link rel="stylesheet" href="/css/styles.css">
-    <link rel="icon" type="image/x-icon" href="/images/free-30-instagram-stories-icons23_122570.png">
+    <link rel="stylesheet" href="{% static '/css/styles.css' %}">
+    <link rel="icon" type="image/x-icon" href="{% static '/images/free-30-instagram-stories-icons23_122570.png' %}">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
           integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA=="
           crossorigin="anonymous" referrerpolicy="no-referrer"/>
@@ -21,7 +23,7 @@
             <div class="logo">
                 <!-- Link to Home Page -->
                 <a href="#">
-                    <img width="50px" src="/images/free-30-instagram-stories-icons23_122570.png" alt="img1">
+                    <img width="50px" src="{% static '/images/free-30-instagram-stories-icons23_122570.png' %}" alt="img1">
                 </a>
 
                 <!-- Link to Home Page -->
@@ -101,13 +103,13 @@
 
                                 <!-- Link to Edit Pet Photo Page -->
                                 <a href="#">
-                                    <img class="edit-img" src="/images/edit-pen-icon-6.jpg"
+                                    <img class="edit-img" src="{% static '/images/edit-pen-icon-6.jpg' %}"
                                          alt="edit button">
                                 </a>
 
                                 <!-- Link to Delete Pet Photo Page -->
                                 <a href="#">
-                                    <img class="bin-img" src="/images/icon-remove-22.jpg" alt="bin button">
+                                    <img class="bin-img" src="{% static '/images/bin.png' %}" alt="bin button">
                                 </a>
                             </div>
                             <!-- End IF the viewer is the creator of the photo -->
@@ -121,7 +123,7 @@
                 <!-- Start Pet Photo -->
                 <div class="imgBx" id="place the id of the photo here">
                     <!-- Pet Photo -->
-                    <img src="/images/axolotl.jpeg" alt="post" class="cover">
+                    <img src="{% static '/images/dog-on-road.jpg' %}" alt="post" class="cover">
                 </div>
                 <!-- End Pet Photo -->
 
@@ -187,7 +189,7 @@
                                         <div class="profile_img">
                                             <div class="image">
                                                 <!-- User Profile Image -->
-                                                <img src="/images/person.png" alt="img8">
+                                                <img src="{% static '/images/person.png' %}" alt="img8">
                                             </div>
                                         </div>
                                     </div>

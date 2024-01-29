@@ -1,7 +1,7 @@
 
 
 # Create your views here.
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 
 
 # Create your views here.
@@ -39,3 +39,5 @@ def delete_profile(request, pk):
 
     }
     return render(request, 'accounts/profile-delete-page.html', context)
+def logout(request):
+    return redirect('index')
