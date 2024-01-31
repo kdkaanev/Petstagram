@@ -9,4 +9,11 @@ from petstagram.photos.models import PetPhoto
 @admin.register(PetPhoto)
 
 class PhotoAdmin(admin.ModelAdmin):
-    pass
+    list_display = ('pk', 'photo', 'description', 'location', 'tagged_pets_count', 'short_description',)
+
+
+    def tagged_pets_count(self, obj):
+        return ', '.join([pet.name for pet in obj.pets.all()])
+
+    def short_description(self, obj):
+        return obj.description[:5]
