@@ -26,7 +26,7 @@ class PhotoComents(models.Model):
         related_name='comments'
     )
 
-    class PhotoLikes(models.Model):
+class PhotoLikes(models.Model):
         pet_photo = models.ForeignKey(
             PetPhoto,
             on_delete=models.DO_NOTHING,
