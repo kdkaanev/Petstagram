@@ -26,13 +26,13 @@
                             <img class="edit-img" src="{% static '/images/edit-pen-icon-6.jpg' %}" alt="edit button">
                         </a>
                         <!-- Pet Delete Button -->
-                        <a href="">
+                        <a href="{% url 'delete-pet' username='kancho' pet_slug=pet.slug%}">
                             <img class="bin-img" src="{% static '/images/icon-remove-22.jpg' %}" alt="bin button">
                         </a>
                     </div>
                     <div class="data">
                         <!-- Pet Total Photos -->
-                        <span>{{ pet.petphoto_set.count }}</span>
+                        <span>{{ pet.pet_photos.count }}</span>
                         <p>photos</p>
                     </div>
                 </div>
@@ -45,9 +45,9 @@
             <!-- IF Photos Start Pet Photos Post Section -->
 
           
-            {% include 'partials/pet_list.html' with pets_list=pet.petphoto_set.all%}
-            
-            
+            {% include 'partials/pet_list.html' with pets_list=pet.pet_photos.all%}
+
+
 
         </div>
     </div>

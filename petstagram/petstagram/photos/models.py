@@ -48,7 +48,10 @@ class PetPhoto(models.Model):
         blank=True
     )
 
-    pets = models.ManyToManyField(Pet)
+    pets = models.ManyToManyField(
+        to=Pet,
+        related_name='pet_photos'
+    )
 
     created_at = models.DateTimeField(
         auto_now_add=True,

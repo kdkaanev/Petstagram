@@ -6,8 +6,14 @@ from petstagram.common.models import PhotoLikes
 
 # Create your views here.
 def index(request):
+    pattern = request.GET.get('pattern', None)
+    pets_photo = PetPhoto.objects.all()
+
+    if pattern:
+        pets_photo = pets_photo.filter(pets__name__icontains=pattern)
     context = {
-        'pet_photos':PetPhoto.objects.all()
+        'pet_photos':PetPhoto.objects.all(),
+        'pets': pets_photo
     }
     return render(request, 'common/home-page.html', context)
 
