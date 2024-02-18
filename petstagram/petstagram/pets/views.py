@@ -39,7 +39,8 @@ class EditPetView(UpdateView):
 
 
 class DetailsPetView(DeleteView):
-    model = Pet
+    # model = Pet
+    queryset = Pet.objects.all().prefetch_related('pet_photos').prefetch_related('likes')
     template_name = 'pets/pet-details-page.html'
     slug_url_kwarg = 'pet_slug'
 
@@ -49,36 +50,46 @@ class DetailsPetView(DeleteView):
         return context
 
 
-def delete_pet(request, username, pet_slug):
-    pet = Pet.objects.get(slug=pet_slug)
-    pet_form = PetDeleteForm(request.POST or None, instance=pet)
+# def delete_pet(request, username, pet_slug):
+#     pet = Pet.objects.get(slug=pet_slug)
+#     pet_form = PetDeleteForm(request.POST or None, instance=pet)
+#
+#     if request.method == 'POST':
+#         pet_form.save()
+#         return redirect('index')
+#     context = {
+#         'pet_form': pet_form,
+#         'username': username,
+#         'pet': pet,
+#
+#     }
+#     return render(request, 'pets/pet-delete-page.html', context)
 
-    if request.method == 'POST':
-        pet_form.save()
-        return redirect('index')
-    context = {
-        'pet_form': pet_form,
-        'username': username,
-        'pet': pet,
+class DeletePetView(DeleteView):
+    model = Pet
+    template_name = 'pets/pet-delete-page.html'
+    form_class = PetDeleteForm
+    slug_url_kwarg = 'pet_slug'
+    success_url = reverse_lazy('index')
+    extra_context = {'username': 'kancho',}
 
-    }
-    return render(request, 'pets/pet-delete-page.html', context)
+    def get_form_kwargs(self):
+        kwargs = super().get_form_kwargs()
+        kwargs['instance'] = self.object
+        return kwargs
+    # def get_context_data(self, **kwargs):
+    #     context = super().get_context_data(**kwargs)
+    #     form = self.form_class(instance=self.object)
+    #     context['form'] = form
+    #     return context
 
-# class DeletePetView(DeleteView):
-#     model = Pet
-#     template_name = 'pets/pet-delete-page.html'
-#
-#     slug_url_kwarg = 'pet_slug'
-#
-#
-#
-#     def get_object(self, queryset=None):
-#         return Pet.objects.get(slug=self.kwargs['pet_slug'])
-#
-#
-#
-#     def delete(self, request, *args, **kwargs):
-#         pet = self.get_object()
-#         pet.delete()
-#         return redirect('home')
+    # def get_object(self, queryset=None):
+    #     return Pet.objects.get(slug=self.kwargs['pet_slug'])
+    #
+    #
+    #
+    # def delete(self, request, *args, **kwargs):
+    #     pet = self.get_object()
+    #     pet.delete()
+    #     return redirect('home')
 

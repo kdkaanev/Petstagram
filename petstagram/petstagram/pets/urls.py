@@ -8,7 +8,7 @@ urlpatterns = (
         [
             path('edit/', views.EditPetView.as_view(), name='edit-pet'),
             path('', views.DetailsPetView.as_view(), name='details-pet'),
-            path('delete/',views.delete_pet, name='delete-pet'),
+            path('delete/',views.DeletePetView.as_view(), name='delete-pet'),
         ]
     )),
 
