@@ -8,8 +8,8 @@
         <div class="col-9">
 
             <!-- Start Searchbar Form -->
-            <form class="searchbar"action="{% url 'index' %}" method="get">
-                <input type="text" name="pattern" placeholder="Search by pet name..." value="{{ pattern }}">
+            <form class="searchbar" action="{% url 'index' %}" method="get">
+                <input type="text" name="pet_name_pattern" placeholder="Search by pet name..." value="{{ pet_name_pattern }}">
                 <button>
                     <img src="{% static '/images/search.png' %}" width="18" height="18" alt="img2">
                 </button>

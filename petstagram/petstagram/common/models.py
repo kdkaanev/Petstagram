@@ -4,7 +4,7 @@ from petstagram.photos.models import PetPhoto
 
 
 # Create your models here.
-class PhotoComents(models.Model):
+class PhotoComments(models.Model):
     MAX_TEXT_LENGTH = 300
 
     text = models.TextField(
