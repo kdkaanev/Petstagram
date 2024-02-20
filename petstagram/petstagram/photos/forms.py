@@ -1,14 +1,27 @@
 from django import forms
 
+from petstagram.pets.forms import ReadOnlyFieldsFormMixin
 from petstagram.photos.models import PetPhoto
 
-class PhotoCreateForm(forms.ModelForm):
+
+class PetPhotoBaseForm(forms.ModelForm):
     class Meta:
         model = PetPhoto
-        fields = '__all__'
+        fields = ['photo', 'description', 'location', 'pets']
 
 
-class PhotoEditForm(forms.ModelForm):
-    class Meta:
-        model = PetPhoto
-        exclude = ['photo']
+class PhotoCreateForm(PetPhotoBaseForm):
+    pass
+
+
+class PhotoEditForm(ReadOnlyFieldsFormMixin, PetPhotoBaseForm):
+    readonly_fields = ('photo',)
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self._apply_readonly_fields()
+
+
+
+
+
+

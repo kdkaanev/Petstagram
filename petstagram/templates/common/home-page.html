@@ -4,7 +4,7 @@
 
 
 {% block main_content %}
-    {% load static %}
+    
 <div class="container">
         <div class="col-9">
 
@@ -15,9 +15,11 @@
                     <img src="{% static '/images/search.png' %}" width="18" height="18" alt="img2">
                 </button>
             </form>
+            <!-- End Searchbar Form -->
+            
             {% include 'partials/pet_list.html' with pets_list=object_list%}
             <div class="pagination">
-            {% load static %}
+         
                 <span class="current">
                         Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}
                 </span>
@@ -53,4 +55,3 @@
     </div>
 {% endblock %}
 
-<

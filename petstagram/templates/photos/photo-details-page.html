@@ -9,18 +9,20 @@
         <div class="col-9">
 
             <!-- Start Pet Photo Post Section -->
-            {% include 'partials/pet_list_item.html' with photo=pet_photo %}
+            <a href="{% url 'edit-photo' pk=object.pk %}">Edit</a>
+            {% include 'partials/pet_list_item.html' with photo=object %}
 
             <!-- End Pet Photo Post Section -->
             <!-- Photo description -->
-            <p class="pet-details">{{ pet_photo.description }}</p>
+        
+            <p class="pet-details">{{ object.description }}</p>
 
             <!-- Date of Publication or edit of the Photo -->
-            <h5 class="postTime">{{ pet_photo.created_at | date:"d.m.Y H:i" }}</h5>
+            <h5 class="postTime">{{ object.created_at | date:"d.m.Y H:i" }}</h5>
 
             <!-- Start Comments Section -->
             <div class="comments">
-                {% for comment in pet_photo.comments.all %}
+                {% for comment in object.comments.all %}
                 	
               
                 
@@ -38,7 +40,7 @@
                             <p>
                                 <!-- Link to User Profile Details Page-->
                                 <!-- User First and/or Last Name or username-->
-                                <a href="{% url 'show-profile' pk=1 %}">Steven Ivanov</a>
+                                <a href="{% url 'show-profile' pk=1 %}">kancho</a>
                                 <!-- User Comment -->
                                 - {{ comment.text }}
                             </p>
@@ -52,8 +54,8 @@
             <!-- End Comments Section -->
 
 
-        </div>
+        
     </div>
 
-
+</div>
 {% endblock %}

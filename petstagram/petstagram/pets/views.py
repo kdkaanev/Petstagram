@@ -40,7 +40,7 @@ class EditPetView(UpdateView):
 
 class DetailsPetView(DeleteView):
     # model = Pet
-    queryset = Pet.objects.all().prefetch_related('pet_photos').prefetch_related('likes')
+    queryset = Pet.objects.all().prefetch_related('pet_photos')
     template_name = 'pets/pet-details-page.html'
     slug_url_kwarg = 'pet_slug'
 

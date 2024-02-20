@@ -1,18 +1,23 @@
 from django import forms
 
 from petstagram.pets.models import Pet
+
+
 class ReadOnlyFieldsFormMixin:
-    readonly_fields =()
+    readonly_fields = ()
+
     def _apply_readonly_fields(self):
-        for name,field in self.fields.items():
-            field.widget.attrs['readonly'] = 'readonly'
+        for field in self.readonly_fields:
+            self.fields[field].widget.attrs['readonly'] = 'readonly'
+            self.fields[field].widget.attrs['disabled'] = 'disabled'
 
 
-    @property
-    def read_only_fields_names(self):
-        if self.readonly_fields == '__all__':
-            return self.readonly_fields
+@property
+def read_only_fields_names(self):
+    if self.readonly_fields == '__all__':
         return self.readonly_fields
+    return self.readonly_fields
+
 
 class PetBaseForm(forms.ModelForm):
     class Meta:
@@ -20,7 +25,7 @@ class PetBaseForm(forms.ModelForm):
         fields = ['name', 'date_of_birth', 'personal_photo', ]
 
         widgets = {
-           'name': forms.TextInput(attrs={'placeholder': 'Pet name'}),
+            'name': forms.TextInput(attrs={'placeholder': 'Pet name'}),
             'date_of_birth': forms.DateInput(attrs={'type': 'date'}),
             'personal_photo': forms.URLInput(attrs={'placeholder': 'Link to image'}),
         }
@@ -35,11 +40,13 @@ class PetCreateForm(PetBaseForm):
     pass
 
 
-class PetEditForm(ReadOnlyFieldsFormMixin,PetBaseForm):
+class PetEditForm(ReadOnlyFieldsFormMixin, PetBaseForm):
     readonly_fields = ('date_of_birth',)
+
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self._apply_readonly_fields()
+
     def clean_date_birth(self):
         date_of_birth = self.cleaned_data['date_of_birth']
         if date_of_birth != self.instance.date_of_birth:
@@ -47,10 +54,9 @@ class PetEditForm(ReadOnlyFieldsFormMixin,PetBaseForm):
         return date_of_birth
 
 
-
-
-class PetDeleteForm(ReadOnlyFieldsFormMixin,PetBaseForm):
+class PetDeleteForm(ReadOnlyFieldsFormMixin, PetBaseForm):
     readonly_fields = '__all__'
+
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self._apply_readonly_fields()
