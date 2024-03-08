@@ -30,18 +30,20 @@
                             <i>Add Photo</i>
                         </a>
                     </li>
-                    {% if request.user.is_authenticated %}
+                    
+                    	
+                   {% if request.user.is_authenticated %}
                      <li class="nav-item">
 
                         <!-- Link to Profile Page -->
-                        <a href="{% url 'show-profile' pk=1 %}">
+                        <a href="{% url 'show-profile' pk=request.user.pk%}">
                             <i>Profile</i>
                         </a>
                     </li>
                       <li class="nav-item">
 
                         <!-- Link to Login Page -->
-                        <a href="{% url 'index' %}">
+                        <a href="{% url 'logout' pk=request.user.pk%}">
                             <i>Logout</i>
                         </a>
                     </li>
