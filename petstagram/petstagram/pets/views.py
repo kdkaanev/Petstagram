@@ -14,6 +14,8 @@ class AddPetView(CreateView):
         return reverse_lazy('details-pet', kwargs={'username': 'kancho', 'pet_slug': self.object.slug})
 
 
+
+
 class EditPetView(UpdateView):
     model = Pet
     form_class = PetEditForm

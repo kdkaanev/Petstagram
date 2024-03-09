@@ -60,7 +60,9 @@
             {% if object.full_name %}
                 <h3 class="names">{{object.full_name}}</h3>
             {% endif %}
-
+            {% if object.date_of_birth %}
+                {{object.date_of_birth}}
+            {% endif %}
                 <!-- User Email Address -->
                 <p class="email">{{ object.user.email }}</p>
 

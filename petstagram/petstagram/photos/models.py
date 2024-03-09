@@ -1,9 +1,10 @@
+from django.contrib.auth import get_user_model
 from django.core.validators import MinLengthValidator, BaseValidator
 from django.db import models
 
 from petstagram.pets.models import Pet
 
-
+UserModel = get_user_model()
 SIZE_5_MB = 5 * 1024 * 1024
 def validate_image_size(value):
     if value.size > SIZE_5_MB:
@@ -59,4 +60,8 @@ class PetPhoto(models.Model):
     )
     modified_at = models.DateTimeField(
         auto_now=True,
+    )
+    user = models.ForeignKey(
+        UserModel,
+        on_delete=models.RESTRICT,
     )

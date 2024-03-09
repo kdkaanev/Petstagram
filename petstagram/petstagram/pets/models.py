@@ -1,7 +1,8 @@
+from django.contrib.auth import get_user_model
 from django.db import models
 from django.template.defaultfilters import slugify
 
-
+UserModel = get_user_model()
 # Create your models here.
 class Pet(models.Model):
     MAX_NAME_LENGTH = 30
@@ -23,6 +24,10 @@ class Pet(models.Model):
         null=False,
         blank=True,
         editable=False
+    )
+    user = models.ForeignKey(
+        UserModel,
+        on_delete=models.RESTRICT,
     )
 
     def save( self, *args, **kwargs):
