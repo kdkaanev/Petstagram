@@ -12,51 +12,60 @@
         <div class="profile-data">
             <div class="profile_img">
                 <div class="image">
-
+                {% if object.profile_picture %}
                     <!-- Profile Image -->
-                    <img src="/images/person.png" alt="img8">
+                    <img src="{{ object.profile_picture}}" alt="img8">
+                {% else %}   
+                    <img src="{% static '/images/person.png' %}" alt="img8">
+                {% endif %}
                 </div>
             </div>
             <div class="personal">
                 <div class="edit">
                     <!-- User Username -->
-                    <p>d_kalaydzhiev</p>
-
+                    <p>{{profile.user.email}}</p>
+                    {% if object.user.pk == request.user.pk %}
                     <!-- IF the viewer is the owner of the profile -->
                     <!-- Link to Edit Profile Page -->
-                    <a href="#">
+                    <a href="{% url 'edit-profile' pk=object.pk %}">
                         <img class="edit-img" src="{% static '/images/edit-pen-icon-6.jpg' %}" alt="edit button">
                     </a>
+                   
 
                     <!-- Link to Delete Profile Page -->
-                    <a href="">
+                    <a href="{% url 'delete-profile' pk=object.pk %}">
                         <img class="bin-img" src="{% static '/images/icon-remove-22.jpg' %}" alt="bin button">
                     </a>
                     <!-- End IF the viewer is the owner of the profile -->
-
+                    {% endif %}
                 </div>
                 <div class="data">
 
                     <!-- Total Number of Photos by the User -->
+                    {# TODO: Fix this #}
                     <span>4</span>
                     <p>photos</p>
 
                     <!-- Total Number of Pets owned by the User -->
+                     {# TODO: Fix this #}
                     <span>7</span>
                     <p>pets</p>
 
                     <!-- Total Number of Likes for the User -->
+                     {# TODO: Fix this #}
                     <span>436</span>
                     <p>likes</p>
                 </div>
                 <!-- User First and Last Name IF Added -->
-                <h3 class="names">Diyan Kalaydziev</h3>
+            {% if object.full_name %}
+                <h3 class="names">{{object.full_name}}</h3>
+            {% endif %}
 
                 <!-- User Email Address -->
-                <p class="email">d.denov@gmail.com</p>
+                <p class="email">{{ object.user.email }}</p>
 
                 <!-- User Gender IF Added -->
-                <p class="gender">Male</p>
+            
             </div>
         </div>
         <!-- End Profile Personal Data Section -->
@@ -77,6 +86,7 @@
                             </div>
                         </div>
                         <!-- Pet Name -->
+                         {# TODO: Fix this #}
                         <p>Sasho</p>
                     </div>
                 </a>
@@ -94,6 +104,7 @@
                             </div>
                         </div>
                         <!-- Pet Name -->
+                         {# TODO: Fix this #}
                         <p>Todi</p>
                     </div>
                 </a>
@@ -110,6 +121,7 @@
                             </div>
                         </div>
                         <p>Mihail</p>
+                         {# TODO: Fix this #}
                     </div>
                 </a>
                 <!-- End 3rd Pet Details Page -->
@@ -124,6 +136,7 @@
                                      alt="pet img">
                             </div>
                         </div>
+                         {# TODO: Fix this #}
                         <p>Petar</p>
                     </div>
                 </a>
@@ -139,6 +152,7 @@
                                      alt="pet img">
                             </div>
                         </div>
+                         {# TODO: Fix this #}
                         <p>Stamat</p>
                     </div>
                 </a>
