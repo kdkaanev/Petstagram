@@ -44,7 +44,7 @@ INSTALLED_APPS = [
     "petstagram.photos.apps.PhotosConfig",
     "petstagram.pets.apps.PetsConfig",
     "petstagram.accounts.apps.AccountConfig",
-    "petstagram.common.apps.CommonConfig"
+    "petstagram.common.apps.CommonConfig",
 ]
 
 MIDDLEWARE = [

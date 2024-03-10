@@ -51,9 +51,11 @@ class IndexView(ListView):
 
 
 
+
+
 def like_pet_photo(request,pk):
-    #pet_photo_like = PhotoLikes.objects.get(pk=pk, user=request.user)
-    pet_photo_like = PhotoLikes.objects.filter(pet_photo_id=pk).first()
+    pet_photo_like = PhotoLikes.objects.get(pk=pk,user_id=12)
+
     if pet_photo_like:
         pet_photo_like.delete()
     else:

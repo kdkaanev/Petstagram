@@ -1,22 +1,38 @@
 from django.http import HttpResponseRedirect
 from django.shortcuts import render, redirect
 from django.urls import reverse_lazy
+from django.views.generic import DetailView
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
-from petstagram.pets.forms import PetCreateForm, PetEditForm, PetBaseForm,PetDeleteForm
+
+from petstagram.core.view_mixin import OwnerRequiredMixin
+from petstagram.pets.forms import PetCreateForm, PetEditForm, PetBaseForm, PetDeleteForm
 from petstagram.pets.models import Pet
+from django.contrib.auth.mixins import LoginRequiredMixin
 
 
-class AddPetView(CreateView):
+
+class AddPetView(LoginRequiredMixin,CreateView):
     form_class = PetCreateForm
     template_name = 'pets/pet-add-page.html'
 
     def get_success_url(self):
         return reverse_lazy('details-pet', kwargs={'username': 'kancho', 'pet_slug': self.object.slug})
 
+    # def form_valid(self, form):
+    #     instance = form.save(commit=False)
+    #     instance.user = self.request.user
+    #
+    #     return super().form_valid(form)
+    #
+
+    def get_form(self, form_class=None):
+        form = super().get_form(form_class=form_class)
+
+        form.instance.user = self.request.user
+        return form
 
 
-
-class EditPetView(UpdateView):
+class EditPetView(OwnerRequiredMixin,UpdateView):
     model = Pet
     form_class = PetEditForm
     template_name = 'pets/pet-edit-page.html'
@@ -27,20 +43,17 @@ class EditPetView(UpdateView):
         context['username'] = 'kancho'
         return context
 
-
     def get_success_url(self):
         return reverse_lazy('details-pet', kwargs={
             'username': self.request.GET.get('username'),
             'pet_slug': self.object.slug
         }
 
-         )
+                            )
 
 
 
-
-
-class DetailsPetView(DeleteView):
+class DetailsPetView(LoginRequiredMixin,DetailView):
     # model = Pet
     queryset = Pet.objects.all().prefetch_related('pet_photos')
     template_name = 'pets/pet-details-page.html'
@@ -67,13 +80,13 @@ class DetailsPetView(DeleteView):
 #     }
 #     return render(request, 'pets/pet-delete-page.html', context)
 
-class DeletePetView(DeleteView):
+class DeletePetView(OwnerRequiredMixin,DeleteView):
     model = Pet
     template_name = 'pets/pet-delete-page.html'
     form_class = PetDeleteForm
     slug_url_kwarg = 'pet_slug'
     success_url = reverse_lazy('index')
-    extra_context = {'username': 'kancho',}
+    extra_context = {'username': 'kancho', }
 
     def get_form_kwargs(self):
         kwargs = super().get_form_kwargs()
@@ -94,4 +107,3 @@ class DeletePetView(DeleteView):
     #     pet = self.get_object()
     #     pet.delete()
     #     return redirect('home')
-

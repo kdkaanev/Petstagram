@@ -8,6 +8,7 @@ from django import forms
 
 from petstagram.accounts.forms import PetstagrmaUserCreationForm
 from petstagram.accounts.models import Profile
+from petstagram.photos.models import PetPhoto
 
 
 class SignUpUserView(views.CreateView):
@@ -33,10 +34,22 @@ class ProfileDetailsView(views.DetailView):
     template_name = 'accounts/profile-details-page.html'
 
 
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['user_photos'] = (
+            PetPhoto.objects.
+            filter(user_id=self.object.pk).
+            order_by('-created_at')
+        )
+        return context
+
+
 class ProfilUpdateView(views.UpdateView):
     queryset = Profile.objects.all()
     template_name = 'accounts/profile-edit-page.html'
     fields = ('first_name', 'last_name', 'profile_picture', 'date_of_birth')
+
+
 
     def get_success_url(self):
         return reverse_lazy('show-profile', kwargs={'pk': self.object.pk})

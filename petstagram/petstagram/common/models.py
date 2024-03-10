@@ -1,12 +1,13 @@
 from django.contrib.auth import get_user_model
 from django.db import models
 
+from petstagram.core.models import IHaveUser
 from petstagram.photos.models import PetPhoto
 
 UserModel = get_user_model()
 
 # Create your models here.
-class PhotoComments(models.Model):
+class PhotoComments(IHaveUser, models.Model):
     MAX_TEXT_LENGTH = 300
 
     text = models.TextField(
@@ -32,14 +33,14 @@ class PhotoComments(models.Model):
         on_delete=models.RESTRICT,
     )
 
-class PhotoLikes(models.Model):
+class PhotoLikes(IHaveUser,models.Model):
         pet_photo = models.ForeignKey(
             PetPhoto,
             on_delete=models.DO_NOTHING,
             related_name='likes'
         )
 
-        user = models.ForeignKey(
-            UserModel,
-            on_delete=models.RESTRICT,
-        )
+        # user = models.ForeignKey(
+        #     UserModel,
+        #     on_delete=models.RESTRICT,
+        # )

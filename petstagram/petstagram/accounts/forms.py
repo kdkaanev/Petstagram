@@ -6,3 +6,7 @@ class PetstagrmaUserCreationForm(auth_forms.UserCreationForm):
     class Meta(auth_forms.UserCreationForm.Meta):
         model = UserModel
         fields = ('email',)
+
+
+class PetstagramUserChangeForm(auth_forms.UserChangeForm):
+    pass

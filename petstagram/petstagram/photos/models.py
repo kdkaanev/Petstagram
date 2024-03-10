@@ -2,6 +2,7 @@ from django.contrib.auth import get_user_model
 from django.core.validators import MinLengthValidator, BaseValidator
 from django.db import models
 
+from petstagram.core.models import IHaveUser
 from petstagram.pets.models import Pet
 
 UserModel = get_user_model()
@@ -20,7 +21,7 @@ class MaxFileSizeValidator(BaseValidator):
         return a > b
 
 
-class PetPhoto(models.Model):
+class PetPhoto(IHaveUser,models.Model):
 
     MIN_DESCRIPTION_LENGTH = 10
     MAX_DESCRIPTION_LENGTH = 300
@@ -61,7 +62,7 @@ class PetPhoto(models.Model):
     modified_at = models.DateTimeField(
         auto_now=True,
     )
-    user = models.ForeignKey(
-        UserModel,
-        on_delete=models.RESTRICT,
-    )
+    # user = models.ForeignKey(
+    #     UserModel,
+    #     on_delete=models.RESTRICT,
+    # )
